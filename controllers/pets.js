@@ -1,2 +1,7 @@
-// controllers/pets.js
-const Pet = require('../models/pet.js');
+export const getPets = (req, res) => {
+    // logic goes here
+  }
+  
+  export const getPet = (req, res) => {
+    
+  }
