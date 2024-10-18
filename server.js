@@ -1,4 +1,4 @@
-import db from './db/connection.js'; // let db = mongoose.connection
+import db from "./db/connection.js";
 import express from "express";
 import logger from "morgan";
 import chalk from "chalk";
@@ -8,7 +8,8 @@ dotenv.config();
 const app = express();
 const PORT = process.env.PORT || 3000;
 
-// TBU: Add more middlewar (cors, express.Json)
+// TBU: Add more middlewar (cors)
+app.use(express.json());
 app.use(logger("dev"));
 
 // TBU: Add route
