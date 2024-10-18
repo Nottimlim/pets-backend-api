@@ -9,6 +9,25 @@ export const getPets = async (req, res) => {
   }
 };
 
+export const getPet = async (req, res) => {
+  try {
+    const pet = await Pet.findById(req.params.petId);
+
+    if (!pet) {
+      res.status(404);
+      throw new Error("Pet not found.");
+    }
+
+    res.status(200).json(pet);
+  } catch (error) {
+    if (res.statusCode === 404) {
+      res.json({ error: error.message });
+    } else {
+      res.status(500).json({ error: error.message });
+    }
+  }
+};
+
 export const createPet = async (req, res) => {
   try {
     const createdPet = await Pet.create(req.body);
@@ -18,17 +37,40 @@ export const createPet = async (req, res) => {
   }
 };
 
-export const getPet = async (req, res) => {
-    try {
-       const pet = await Pet.findById(req.params.petId);
-       if (!pet) {
-         res.status(404);
-         throw new Error("Pet not found");
-       }
-       res.status(200).json(pet);
-     } catch (error) {
-       res.status(500).json({ error: error.message });
-     }
+export const updatePet = async (req, res) => {
+  try {
+    const updatedPet = await Pet.findByIdAndUpdate(req.params.petId, req.body);
+
+    if (!updatedPet) {
+      res.status(404);
+      throw new Error("Pet not found.");
+    }
+
+    res.status(200).json(updatedPet);
+  } catch (error) {
+    if (res.statusCode === 404) {
+      res.json({ error: error.message });
+    } else {
+      res.status(500).json({ error: error.message });
+    }
+  }
 };
-export const updatePet = async (req, res) => {};
-export const deletePet = async (req, res) => {};
+
+export const deletePet = async (req, res) => {
+  try {
+    const deletedPet = await Pet.findByIdAndDelete(req.params.petId);
+
+    if (!deletedPet) {
+      res.status(404);
+      throw new Error("Pet not found.");
+    }
+
+    res.status(200).json(deletedPet);
+  } catch (error) {
+    if (res.statusCode === 404) {
+      res.json({ error: error.message });
+    } else {
+      res.status(500).json({ error: error.message });
+    }
+  }
+};
